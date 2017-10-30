@@ -63,6 +63,9 @@
 ;;     ))
 (defn set-grid [] (promise))
 
+(defn set-label []
+  (Label. "User Name:"))
+
 (defn set-scene
   " arguments means children \n
   example:
@@ -85,9 +88,6 @@
                                  (doto atxt
                                    (.setFill Color/FIREBRICK)
                                    (.setText "Sign in button pressed"))))))
-        hbox (doto (new HBox 10)
-               (.setAlignment Pos/BOTTOM_RIGHT))
-        _    (.. hbox getChildren (add btn))
         grid (doto (GridPane.)
                (.setAlignment Pos/CENTER)
                (.setHgap 10)
@@ -96,11 +96,11 @@
                (.add (doto (Text. "Welcome")
                        (.setFont (Font/font "Tahoma" FontWeight/NORMAL 20.0)))
                      0 0 2 1)
-               (.add (Label. "User Name:") 0 1)
+               (.add (set-label) 0 1)
                (.add (TextField.) 1 1)
                (.add (Label. "Password:") 0 2)
                (.add (PasswordField.) 1 2)
-               (.add hbox 1 4)
+               (.add btn 1 4)
                (.add atxt 1 6))]
   (doto (Scene. grid 300 275))))
 
