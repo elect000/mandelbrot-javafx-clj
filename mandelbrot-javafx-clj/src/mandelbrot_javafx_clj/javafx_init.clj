@@ -1,38 +1,25 @@
 (ns mandelbrot-javafx-clj.javafx-init
-  (:require [mandelbrot-javafx-clj.core :as core])
-  (:import (javafx.application Application)
-           (javafx.stage Stage))
-  (:gen-class
+     (:require [mandelbrot-javafx-clj.core :as core])
+     (:import (javafx.application Application)
+              (javafx.stage Stage))
+     (:gen-class
    :extends javafx.application.Application))
 
-(def window (promise))
-
-(defn start-fx
-  "This is template from \n
-  https://qiita.com/foozea/items/c7932a8b18ed282e9784 "
-  ([] (start-fx {:root-stage? true}))
-  ([{:keys [root-stage?]}]
-   (core/swap root-stage?)
-   (when (not (realized? window))
-     (doto (Thread.
-            #(Application/launch
-              mandelbrot_javafx_clj.javafx_init
-              (into-array String [])))
-       .start))
-   @window))
-
 (defn -start
-  "This is template from \n
-  https://qiita.com/foozea/items/c7932a8b18ed282e9784 "
+  " This is javafx start funnction \n
+  If you want to change attribute of 'javafx.stage.Stage', You add in (doto ...) \n
+  And also, You want to add some button or canvas etc..., You add in (let ...) and (doto ...) "
   [this ^Stage stage]
-  (deliver window stage)
-  (.show stage))
+  (let []
+    (doto stage
+      (.setTitle "Fractals: Mandelbrot")
+      (.setOnCloseRequest (core/force-exit {:root-stage? false}))
+      (.setScene (core/set-scene))
+      ;;(core/root-stage {:root-stage? false})
+      .show)))
 
 (defn -main
-  "This is template from \n
-  https://qiita.com/foozea/items/c7932a8b18ed282e9784 "
+  " This is javafx launch function \n Please don't chage it"
   [& args]
-  (let [stage (start-fx)]
-    (doto stage
-      (core/root-stage {:root-stage? false})
-      .show)))
+  (core/swap false)
+  (Application/launch mandelbrot_javafx_clj.javafx_init (into-array String [])))
