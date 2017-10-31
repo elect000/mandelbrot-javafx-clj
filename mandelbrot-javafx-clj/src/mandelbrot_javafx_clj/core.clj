@@ -4,7 +4,8 @@
            (javafx.stage Stage)
            (javafx.awt.Color)
            (javafx.scene Scene)
-           (javafx.scene.layout GridPane HBox)
+           (javafx.scene.layout GridPane)
+           ;; We cannot use HBox
            (javafx.geometry Pos Insets)
            (javafx.scene.text Text Font FontWeight)
            (javafx.scene.control Label TextField PasswordField Button)
@@ -28,43 +29,65 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; You should add some button scene h-box and etc below ;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;; (def set-text2 (Text.))
+(defn set-label2 []
+  (Label. "Password:"))
 
-;; (def set-btn (doto (Button.)
-;;                (.setText "Sign in")))
+(defn set-textfield []
+  (doto (TextField.)))
 
+(defn set-text2 []
+  (Text.))
+
+(defn set-btn []
+  (doto (Button.)
+    (.setText "Sign in")))
+
+;; We cannot use Hbox
 ;; (def set-hbox
 ;;   (doto (HBox. 10)
 ;;     (.setAlignment Pos/BOTTOM_RIGHT)))
 
-;; (def set-passwordfield
-;;   (PasswordField.))
-
-;; (def set-label
-;;   (Label. "Username"))
-
-;; (def set-text1
-;;   "If you do not change this, declare it as a variable"
-;;   (doto (Text. "Welcome")
-;;     (.setFont (Font/font "Tahoma" FontWeight/NORMAL 20.0))))
-
-;; (defn set-grid
-;;   []
-;;   (doto (GridPane.)
-;;     (.setAlignment Pos/CENTER)
-;;     (.setHgap 10)
-;;     (.setVgap 10)
-;;     (.setPadding (Insets. 25 25 25 25))
-;;     (.add set-text1 0 0 2 1)
-;;     (.add set-label 0 1)
-;;     (.add set-passwordfield 1 2)
-;;     (.add set-hbox 1 4)
-;;     (.add set-text2 1 6)
-;;     ))
-(defn set-grid [] (promise))
+(defn set-passwordfield []
+   (PasswordField.))
 
 (defn set-label []
-  (Label. "User Name:"))
+  (Label. "Username"))
+
+(defn set-text1 []
+   "If you do/do not change this, You must declear as Functions"
+   (doto (Text. "Welcome")
+     (.setFont (Font/font "Tahoma" FontWeight/NORMAL 20.0))))
+
+(def texts {:text (doto (Text.))})
+(def atxt (ref texts))
+(defn set-btn []
+   (doto (Button. "Sign in")
+     (.setOnAction (proxy [EventHandler] []
+                     (handle [_]
+                       (dosync
+                        (ref-set atxt (doto @atxt
+                                         (.setFill Color/FIREBRICK)
+                                         (.setText "Sign in button pressed")))))))))
+
+(defn set-grid
+  "(let [something])
+  ... something will be changed with app's internal change"
+  []
+  (doto (GridPane.)
+    (.setAlignment Pos/CENTER)
+    (.setHgap 10)
+    (.setVgap 10)
+    (.setPadding (Insets. 25 25 25 25))
+    (.add (set-text1) 0 0 2 1)
+    (.add (set-label) 0 1)
+    (.add (set-textfield) 1 1)
+    (.add (set-label2) 0 2)
+    (.add (set-passwordfield) 1 2)
+    (.add (set-btn) 1 4)
+    (.add (set-text2) 1 6)
+    (.add (set-btn) 1 4)
+    (.add (:text @atxt))
+    ))
 
 (defn set-scene
   " arguments means children \n
