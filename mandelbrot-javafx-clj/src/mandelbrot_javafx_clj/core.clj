@@ -33,15 +33,10 @@
 ;; (def set-btn (doto (Button.)
 ;;                (.setText "Sign in")))
 
-;; (def set-hbox
-;;   (doto (HBox. 10)
-;;     (.setAlignment Pos/BOTTOM_RIGHT)))
-
 ;; (def set-passwordfield
 ;;   (PasswordField.))
 
-;; (def set-label
-;;   (Label. "Username"))
+
 
 ;; (def set-text1
 ;;   "If you do not change this, declare it as a variable"
@@ -58,14 +53,13 @@
 ;;     (.add set-text1 0 0 2 1)
 ;;     (.add set-label 0 1)
 ;;     (.add set-passwordfield 1 2)
-;;     (.add set-hbox 1 4)
+;;     (.add set-btn 1 4)
 ;;     (.add set-text2 1 6)
 ;;     ))
-(defn set-grid [] (promise))
 
 (defn set-label []
-  (Label. "User Name:"))
-
+  (Label. "Username :")
+  )
 (defn set-scene
   " arguments means children \n
   example:
