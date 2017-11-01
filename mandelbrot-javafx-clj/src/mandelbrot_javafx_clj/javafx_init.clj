@@ -6,9 +6,7 @@
    :extends javafx.application.Application))
 
 (defn -start
-  " This is javafx start funnction \n
-  If you want to change attribute of 'javafx.stage.Stage', You add in (doto ...) \n
-  And also, You want to add some button or canvas etc..., You add in (let ...) and (doto ...) "
+  " This is javafx-start funnction \n"
   [this ^Stage stage]
   (let []
     (doto stage
@@ -19,7 +17,7 @@
       .show)))
 
 (defn -main
-  " This is javafx launch function \n Please don't chage it"
+  " This is javafx-launch function \n"
   [& args]
   (core/swap false)
   (Application/launch mandelbrot_javafx_clj.javafx_init (into-array String [])))
