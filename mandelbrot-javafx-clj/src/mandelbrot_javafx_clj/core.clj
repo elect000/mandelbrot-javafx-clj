@@ -10,7 +10,9 @@
            (javafx.scene.control Label TextField PasswordField Button)
            (javafx.event EventHandler))
   (:gen-class
-   :extends javafx.application.Application))
+   :extends javafx.application.Application
+   )
+  )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Here is the function of calculating Mandelbrot sets / returns int RGB array ;;;
@@ -30,40 +32,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; You should add some button scene h-box and etc below ;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-<<<<<<< HEAD
-;; (def set-text2 (Text.))
 
-;; (def set-btn (doto (Button.)
-;;                (.setText "Sign in")))
-
-;; (def set-passwordfield
-;;   (PasswordField.))
-
-
-
-;; (def set-text1
-;;   "If you do not change this, declare it as a variable"
-;;   (doto (Text. "Welcome")
-;;     (.setFont (Font/font "Tahoma" FontWeight/NORMAL 20.0))))
-
-;; (defn set-grid
-;;   []
-;;   (doto (GridPane.)
-;;     (.setAlignment Pos/CENTER)
-;;     (.setHgap 10)
-;;     (.setVgap 10)
-;;     (.setPadding (Insets. 25 25 25 25))
-;;     (.add set-text1 0 0 2 1)
-;;     (.add set-label 0 1)
-;;     (.add set-passwordfield 1 2)
-;;     (.add set-btn 1 4)
-;;     (.add set-text2 1 6)
-;;     ))
-
-(defn set-label []
-  (Label. "Username :")
-  )
-=======
 (defn set-label2 []
   (Label. "Password:"))
 
@@ -78,18 +47,17 @@
     (.setText "Sign in")))
 
 (defn set-hbox []
-   (doto (HBox. 10)
+   (doto (HBox. 10.0)
      (.setAlignment Pos/BOTTOM_RIGHT)))
 
 (defn set-passwordfield []
-   (PasswordField.))
+  (PasswordField.))
 
 (defn set-label []
   (Label. "Username"))
 
 (defn set-text1 []
-   "If you do/do not change this, You must declear as Functions"
-   (doto (Text. "Welcome")
+  (doto (Text. "Welcome")
      (.setFont (Font/font "Tahoma" FontWeight/NORMAL 20.0))))
 
 (def texts {:text (doto (Text.))})
@@ -113,7 +81,7 @@
     (.setVgap 10)
     (.setPadding (Insets. 25 25 25 25))
     (.add (set-text1) 0 0 2 1)
-    (.add (set-label) 0 1)
+    (.add set-label 0 1)
     (.add (set-textfield) 1 1)
     (.add (set-label2) 0 2)
     (.add (set-passwordfield) 1 2)
@@ -124,7 +92,6 @@
     (.add (:text @atxt))
     ))
 
->>>>>>> ba8f45edcfc238bb5d983729f0068e9df4226f45
 (defn set-scene
   " arguments means children \n
   example:

@@ -4,12 +4,15 @@
            (javafx.stage Stage)
            (javafx.awt.Color)
            (javafx.scene Scene)
-           (javafx.scene.layout GridPane)
-           ;; We cannot use HBox
+           (javafx.scene.layout GridPane HBox)
            (javafx.geometry Pos Insets)
            (javafx.scene.text Text Font FontWeight)
            (javafx.scene.control Label TextField PasswordField Button)
-           (javafx.event EventHandler)))
+           (javafx.event EventHandler))
+  (:gen-class
+   :extends javafx.application.Application
+   )
+  )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Here is the function of calculating Mandelbrot sets / returns int RGB array ;;;
@@ -29,6 +32,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; You should add some button scene h-box and etc below ;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+
 (defn set-label2 []
   (Label. "Password:"))
 
@@ -42,20 +46,18 @@
   (doto (Button.)
     (.setText "Sign in")))
 
-;; We cannot use Hbox
-;; (def set-hbox
-;;   (doto (HBox. 10)
-;;     (.setAlignment Pos/BOTTOM_RIGHT)))
+(defn set-hbox []
+   (doto (HBox. 10.0)
+     (.setAlignment Pos/BOTTOM_RIGHT)))
 
 (defn set-passwordfield []
-   (PasswordField.))
+  (PasswordField.))
 
 (defn set-label []
   (Label. "Username"))
 
 (defn set-text1 []
-   "If you do/do not change this, You must declear as Functions"
-   (doto (Text. "Welcome")
+  (doto (Text. "Welcome")
      (.setFont (Font/font "Tahoma" FontWeight/NORMAL 20.0))))
 
 (def texts {:text (doto (Text.))})
@@ -79,11 +81,12 @@
     (.setVgap 10)
     (.setPadding (Insets. 25 25 25 25))
     (.add (set-text1) 0 0 2 1)
-    (.add (set-label) 0 1)
+    (.add set-label 0 1)
     (.add (set-textfield) 1 1)
     (.add (set-label2) 0 2)
     (.add (set-passwordfield) 1 2)
-    (.add (set-btn) 1 4)
+    (.add (doto (set-hbox)
+            (.add (set-btn))) 1 4)
     (.add (set-text2) 1 6)
     (.add (set-btn) 1 4)
     (.add (:text @atxt))
