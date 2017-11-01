@@ -4,12 +4,13 @@
            (javafx.stage Stage)
            (javafx.awt.Color)
            (javafx.scene Scene)
-           (javafx.scene.layout GridPane)
-           ;; We cannot use HBox
+           (javafx.scene.layout GridPane HBox)
            (javafx.geometry Pos Insets)
            (javafx.scene.text Text Font FontWeight)
            (javafx.scene.control Label TextField PasswordField Button)
-           (javafx.event EventHandler)))
+           (javafx.event EventHandler))
+  (:gen-class
+   :extends javafx.application.Application))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Here is the function of calculating Mandelbrot sets / returns int RGB array ;;;
@@ -42,10 +43,9 @@
   (doto (Button.)
     (.setText "Sign in")))
 
-;; We cannot use Hbox
-;; (def set-hbox
-;;   (doto (HBox. 10)
-;;     (.setAlignment Pos/BOTTOM_RIGHT)))
+(defn set-hbox []
+   (doto (HBox. 10)
+     (.setAlignment Pos/BOTTOM_RIGHT)))
 
 (defn set-passwordfield []
    (PasswordField.))
@@ -83,7 +83,8 @@
     (.add (set-textfield) 1 1)
     (.add (set-label2) 0 2)
     (.add (set-passwordfield) 1 2)
-    (.add (set-btn) 1 4)
+    (.add (doto (set-hbox)
+            (.add (set-btn))) 1 4)
     (.add (set-text2) 1 6)
     (.add (set-btn) 1 4)
     (.add (:text @atxt))
