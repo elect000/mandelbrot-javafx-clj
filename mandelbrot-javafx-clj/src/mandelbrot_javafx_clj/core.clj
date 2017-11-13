@@ -32,12 +32,13 @@
   x means x-position, y means y-position, \n
   opacity means javafx.scene.paint.Color instance \n
   Return: javafx.scene.paint.Color instance"
-  [pos color]
+  [^clojure.lang.PersistentList pos
+   ^javafx.scene.paint.Color color]
   (let [cx (first pos)
         cy (second pos)]
     (loop [x 0 y 0 times 1]
       (cond
-        (== times depth) (.deriveColor color 0.0 1.0 0.0 1.0)
+        (== times depth) (.deriveColor color 0.0 1.0 0.0 0.0)
         (> (+ (* x x) (* y y)) 4) (.deriveColor color 0.0 1.0 (* 4 (/ 1 times)) 1.0)
         :else (recur (+ (* x x) (* -1.0 y y) cx)
                      (+ (* 2.0 x y) cy)
@@ -53,7 +54,8 @@
   pos means {:x-min :x-max :y-min :y-max}, \n
   color means javafx.scene.paint.Color inst(def ex (atom nil))
   Return: Bufferedimage "
-  [pos color]
+  [^clojure.lang.PersistentArrayMap pos
+   ^javafx.scene.paint.Color color]
   (let [x-min (:x-min pos)
         x-max (:x-max pos)
         y-min (:y-min pos)
@@ -71,7 +73,8 @@
 (defn write-image-to-bufferedimage [^:java.awt.image.BufferedImage img]
   (SwingFXUtils/toFXImage img nil))
 
-(defn mandelbrot-javafx [pos color]
+(defn mandelbrot-javafx [^clojure.lang.PersistentArrayMap pos
+                         ^javafx.scene.paint.Color color]
   [pos color]
   (let [x-min (:x-min pos)
         x-max (:x-max pos)
@@ -103,11 +106,13 @@
 (defonce data-state  (ref initial-state))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; You should add some button scene h-box and etc below ;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(defn set-text [strings]
+(defn set-text [^java.lang.String strings]
   (Text. strings))
 
-(defn data-reset [pos color root-stage new-data]
+(defn data-reset [^clojure.lang.PersistentArrayMap pos
+                  ^javafx.scene.paint.Color color
+                  ^java.lang.Boolean root-stage
+                  ^clojure.lang.Ref new-data]
   (println "Call Function: data-reset")
   (dosync
    (ref-set
@@ -136,7 +141,7 @@
     (.setImage image (set-image))
     image))
 
-(defn event-button-selected [keyword]
+(defn event-button-selected [^clojure.lang.Keyword keyword]
   (let [data-states @data-state
         pos (:pos data-states)
         color (:color data-states)
@@ -225,7 +230,7 @@
                    :root-stage? false :redraw? true})
          (set-writable-image))))))
 
-(defn set-button [keyword]
+(defn set-button [^clojure.lang.Keyword keyword]
   (let [button (Button. (clojure.string/join (rest (str keyword))))]
     (doto button
       (.setOnAction (proxy [EventHandler] []
